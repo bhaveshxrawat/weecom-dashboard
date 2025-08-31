@@ -33,7 +33,7 @@ function DashboardSidebar() {
 	return (
 		<aside className="bg-white p-4 rounded-2xl drop-shadow-sm max-md2:row-start-3 max-md2:p-2">
 			<nav>
-				<ul className="max-md2:flex max-md2:*:flex-1 max-md2:*:text-center max-md:scrollbar-none">
+				<ul className="max-md2:flex max-md2:*:flex-1 max-md2:*:text-center max-md:scrollbar-none max-md:overflow-x-auto">
 					{items.map((item) => (
 						<li key={item.title} className="last:mt-auto">
 							<a

@@ -1,4 +1,4 @@
-import { API_BASEURL } from "@/consts";
+import { API_BASEURL, PRODUCTS_PER_PAGE } from "@/consts";
 
 type Products = {
 	id: number;
@@ -16,7 +16,7 @@ type ProductsResponse = {
 export async function getProducts(skip = 0) {
 	try {
 		const fetchRes = await fetch(
-			`${API_BASEURL}/products?limit=10&skip=${skip}&select=title,price,category,stock`,
+			`${API_BASEURL}/products?limit=${PRODUCTS_PER_PAGE}&skip=${skip}&select=title,price,category,stock`,
 		);
 		if (!fetchRes.ok) {
 			throw new Error("Encountered an issue while fetching.");
