@@ -3,7 +3,7 @@ import logo from "@/assets/weecom.svg";
 
 function DashboardHeader() {
 	return (
-		<header className="col-span-full flex items-center justify-between bg-white p-4 rounded-2xl drop-shadow-sm">
+		<header className="col-span-full flex items-center justify-between bg-white p-4 rounded-2xl drop-shadow-sm @container">
 			<div className="flex items-center gap-2">
 				<img
 					width={36}
@@ -13,7 +13,7 @@ function DashboardHeader() {
 					className="size-8 overflow-clip rounded-full"
 				/>
 				<h2 className="text-gray-900 text-xl font-semibold leading-tight tracking-tight">
-					Products Dashboard
+					<span className="@max-xs:hidden">Products</span> Dashboard
 				</h2>
 			</div>
 			<div className="flex items-center gap-2">
