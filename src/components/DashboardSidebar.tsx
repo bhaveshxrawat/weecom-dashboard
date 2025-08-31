@@ -31,15 +31,15 @@ const items = [
 
 function DashboardSidebar() {
 	return (
-		<aside className="bg-white p-4 rounded-2xl drop-shadow-sm">
+		<aside className="bg-white p-4 rounded-2xl drop-shadow-sm max-md2:row-start-3 max-md2:p-2">
 			<nav>
-				<ul>
+				<ul className="max-md2:flex max-md2:*:flex-1 max-md2:*:text-center max-md:scrollbar-none">
 					{items.map((item) => (
 						<li key={item.title} className="last:mt-auto">
 							<a
 								href={item.url}
 								className={cn(
-									"flex gap-2.5 items-center px-3 py-4 rounded-xl ",
+									"flex gap-2.5 items-center px-3 py-4 rounded-xl max-md2:gap-1.5 max-md2:py-2 max-md2:px-2 max-md2:justify-center",
 									item.title === "Products" && "bg-accent",
 								)}
 							>

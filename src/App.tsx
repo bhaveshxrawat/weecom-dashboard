@@ -4,7 +4,7 @@ import DashboardApp from "./DashboardApp";
 
 function App() {
 	return (
-		<div className="grid min-h-[100svh] grid-rows-[auto_1fr] grid-cols-[18.75rem_1fr] p-4 gap-4 max-w-480 mx-auto">
+		<div className="grid min-h-[100svh] grid-rows-[auto_1fr] grid-cols-[minmax(12.5rem,18.75rem)_1fr] p-4 gap-4 max-w-480 mx-auto max-md2:grid-cols-1 max-md2:grid-rows-[auto_1fr_auto]">
 			<DashboardHeader />
 			<DashboardSidebar />
 			<DashboardApp />
