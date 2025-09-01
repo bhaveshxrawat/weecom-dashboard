@@ -20,36 +20,34 @@ export default function ProductPagination({ count }: { count: number }) {
 		setPage((page) => page + 1);
 	}
 	return (
-		<div className="mt-3">
-			<Pagination className="@container">
-				<PaginationContent>
-					<PaginationItem>
-						<Button variant="outline" onClick={goBack} disabled={page <= 1}>
-							<ArrowLeft />
-							<span className="@max-xs:sr-only">Back</span>
-						</Button>
-					</PaginationItem>
-					<PaginationItem className="px-2 py-1">
-						<span className="text-sm">
-							{Math.min(
-								Math.max(page * PRODUCTS_PER_PAGE, PRODUCTS_PER_PAGE),
-								count,
-							)}
-						</span>{" "}
-						/ <span className="text-sm">{count}</span>
-					</PaginationItem>
-					<PaginationItem>
-						<Button
-							variant="outline"
-							onClick={goNext}
-							disabled={page >= maxPossiblePage}
-						>
-							<span className="@max-xs:sr-only">Next</span>
-							<ArrowRight />
-						</Button>
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
-		</div>
+		<Pagination className="@container">
+			<PaginationContent>
+				<PaginationItem>
+					<Button variant="outline" onClick={goBack} disabled={page <= 1}>
+						<ArrowLeft />
+						<span className="@max-xs:sr-only">Back</span>
+					</Button>
+				</PaginationItem>
+				<PaginationItem className="px-2 py-1">
+					<span className="text-sm">
+						{Math.min(
+							Math.max(page * PRODUCTS_PER_PAGE, PRODUCTS_PER_PAGE),
+							count,
+						)}
+					</span>{" "}
+					/ <span className="text-sm">{count}</span>
+				</PaginationItem>
+				<PaginationItem>
+					<Button
+						variant="outline"
+						onClick={goNext}
+						disabled={page >= maxPossiblePage}
+					>
+						<span className="@max-xs:sr-only">Next</span>
+						<ArrowRight />
+					</Button>
+				</PaginationItem>
+			</PaginationContent>
+		</Pagination>
 	);
 }
