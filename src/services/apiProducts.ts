@@ -13,11 +13,17 @@ type ProductsResponse = {
 	skip: number;
 	limit: number;
 };
-export async function getProducts(skip = 0) {
+export async function getProducts(skip = 0, search = "") {
+	const fetchURL = new URL(
+		`/products?limit=${PRODUCTS_PER_PAGE}&skip=${skip}&select=title,price,category,stock`,
+		API_BASEURL,
+	);
+	if (search !== "") {
+		fetchURL.pathname = "/products/search";
+		fetchURL.searchParams.append("q", search);
+	}
 	try {
-		const fetchRes = await fetch(
-			`${API_BASEURL}/products?limit=${PRODUCTS_PER_PAGE}&skip=${skip}&select=title,price,category,stock`,
-		);
+		const fetchRes = await fetch(fetchURL);
 		if (!fetchRes.ok) {
 			throw new Error("Encountered an issue while fetching.");
 		}

@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react";
 import { Button } from "./components/ui/button";
+import ProductSearch from "./features/products/ProductSearch";
 import ProductTable from "./features/products/ProductTable";
 
 function DashboardApp() {
@@ -14,7 +15,8 @@ function DashboardApp() {
 					Add Product
 				</Button>
 			</div>
-			<div className="mt-6 h-full">
+			<div className="mt-6 h-full space-y-2">
+				<ProductSearch />
 				<ProductTable />
 			</div>
 		</main>

@@ -1,5 +1,4 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { parseAsInteger, useQueryState } from "nuqs";
 import { Button } from "@/components/ui/button";
 import {
 	Pagination,
@@ -7,9 +6,10 @@ import {
 	PaginationItem,
 } from "@/components/ui/pagination";
 import { PRODUCTS_PER_PAGE } from "@/consts";
+import { usePageQueryState } from "../../hooks/usePageQueryState";
 
 export default function ProductPagination({ count }: { count: number }) {
-	const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
+	const [page, setPage] = usePageQueryState();
 	const maxPossiblePage = Math.ceil(count / PRODUCTS_PER_PAGE);
 	function goBack() {
 		if (page <= 1) return;
