@@ -13,7 +13,7 @@ function DashboardHeader() {
 					className="size-8 overflow-clip rounded-full"
 				/>
 				<h2 className="text-gray-900 text-xl font-semibold leading-tight tracking-tight">
-					<span className="@max-xs:hidden">Products</span> Dashboard
+					<span className="@max-xs:hidden">Weecom</span> Dashboard
 				</h2>
 			</div>
 			<div className="flex items-center gap-2">

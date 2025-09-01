@@ -34,14 +34,18 @@ export const newProductSchema = z.object({
 	stock: z.coerce.number<string>({ error: "This is required" }),
 });
 
-function AddProductForm() {
+function AddProductForm({ closeDialog }: { closeDialog: () => void }) {
 	const form = useForm<z.infer<typeof newProductSchema>>({
 		// @ts-expect-error
 		resolver: zodResolver(newProductSchema),
 	});
 	const { addProduct, isAddingProduct } = useAddProduct();
 	function onSubmit(values: z.infer<typeof newProductSchema>) {
-		addProduct(values);
+		addProduct(values, {
+			onSuccess: () => {
+				closeDialog();
+			},
+		});
 	}
 	return (
 		<Form {...form}>

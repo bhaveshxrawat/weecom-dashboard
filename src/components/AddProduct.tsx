@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -10,8 +11,9 @@ import {
 import AddProductForm from "@/features/products/AddProductForm";
 
 export default function AddProduct() {
+	const [open, setOpen] = useState(false);
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button>
 					<Plus />
@@ -22,7 +24,7 @@ export default function AddProduct() {
 				<DialogHeader>
 					<DialogTitle>Add Product</DialogTitle>
 				</DialogHeader>
-				<AddProductForm />
+				<AddProductForm closeDialog={() => setOpen(false)} />
 			</DialogContent>
 		</Dialog>
 	);
