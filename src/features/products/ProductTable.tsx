@@ -43,7 +43,7 @@ function ProductTable() {
 					</TableHeader>
 					<TableBody>
 						{productsLoading || productsFetching ? (
-							Array.from({ length: 3 }).map((_, idx) => (
+							Array.from({ length: 10 }).map((_, idx) => (
 								// biome-ignore lint/suspicious/noArrayIndexKey: <fine for this use case>
 								<TableRow key={idx}>
 									<TableCell className="font-medium">
