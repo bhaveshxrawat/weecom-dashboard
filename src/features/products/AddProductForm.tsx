@@ -11,11 +11,12 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAddProduct } from "./hooks/useAddProduct";
 
 //This is file has many @ts-expect-error; not proud of it. Deadline's near. Will come back to this
 // TODO remove ts-expect-error
 
-const formSchema = z.object({
+export const newProductSchema = z.object({
 	title: z
 		.string({ error: "This is required" })
 		.min(2, {
@@ -34,12 +35,13 @@ const formSchema = z.object({
 });
 
 function AddProductForm() {
-	const form = useForm<z.infer<typeof formSchema>>({
+	const form = useForm<z.infer<typeof newProductSchema>>({
 		// @ts-expect-error
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(newProductSchema),
 	});
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values);
+	const { addProduct, isAddingProduct } = useAddProduct();
+	function onSubmit(values: z.infer<typeof newProductSchema>) {
+		addProduct(values);
 	}
 	return (
 		<Form {...form}>
@@ -113,7 +115,9 @@ function AddProductForm() {
 						)}
 					/>
 				</div>
-				<Button type="submit">Submit</Button>
+				<Button type="submit" disabled={isAddingProduct}>
+					Submit
+				</Button>
 			</form>
 		</Form>
 	);
