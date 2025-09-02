@@ -19,21 +19,11 @@ function ProductTable() {
 		productsData,
 		productsError,
 		productsLoading,
+		productsPending,
 		productsFetching,
 		productsRefetching,
 	} = useProducts();
-	if (productsError) {
-		return (
-			<div className="grid justify-items-center p-4">
-				<p className="py-5 px-3 text-center text-red">{`Uh oh! ${productsError.message}`}</p>
-				<Button variant="outline">
-					<RotateCcw />
-					Retry
-				</Button>
-			</div>
-		);
-	}
-	if (!productsData) return null;
+	console.log({ productsLoading, productsFetching, productsRefetching });
 	return (
 		// <div className="overflow-x-auto">
 		<>
@@ -49,7 +39,18 @@ function ProductTable() {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{productsLoading || productsFetching || productsRefetching ? (
+						{productsError ? (
+							<div className="grid justify-items-center p-4">
+								<p className="py-5 px-3 text-center text-red">{`Uh oh! ${productsError.message}`}</p>
+								<Button variant="outline">
+									<RotateCcw />
+									Retry
+								</Button>
+							</div>
+						) : productsPending ||
+							productsLoading ||
+							productsFetching ||
+							productsRefetching ? (
 							Array.from({ length: 10 }).map((_, idx) => (
 								// biome-ignore lint/suspicious/noArrayIndexKey: <fine for this use case>
 								<TableRow key={idx}>
@@ -97,7 +98,7 @@ function ProductTable() {
 					</TableBody>
 				</Table>
 			</div>
-			<ProductPagination count={productsData.total} />
+			<ProductPagination count={productsData?.total ?? 0} />
 		</>
 	);
 }
