@@ -12,8 +12,8 @@ function DashboardApp() {
 				</h3>
 				<AddProduct />
 			</div>
-			<div className="grid grid-rows-[auto_1fr_auto] gap-2">
-				<div className="flex gap-2 justify-between">
+			<div className="grid grid-rows-[auto_1fr_auto] gap-2 @container">
+				<div className="flex gap-2 justify-between @max-sm:flex-col">
 					<ProductSearch />
 					<ProductCategoryFilter />
 				</div>
