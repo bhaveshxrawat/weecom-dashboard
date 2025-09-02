@@ -23,7 +23,7 @@ function ProductSearch() {
 		}
 	}
 	return (
-		<search className="flex gap-2 items-center">
+		<search className="flex items-center">
 			<div className="relative">
 				<Input
 					type="text"
@@ -40,7 +40,7 @@ function ProductSearch() {
 			</div>
 			{!!category && (
 				<Tooltip>
-					<TooltipTrigger>
+					<TooltipTrigger className="p-2">
 						<Info className="text-muted-foreground" size={20} />
 					</TooltipTrigger>
 					<TooltipContent>

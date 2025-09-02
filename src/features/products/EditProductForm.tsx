@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { usePageQueryState } from "@/hooks/usePageQueryState";
+import { useProductCategoriesState } from "@/hooks/useProductCategoryState";
 import { useSearchQueryState } from "@/hooks/useSearchQueryState";
 import type { ProductsResponse } from "@/services/apiProducts";
 import type { OGProductType } from "@/types/product";
@@ -110,15 +111,17 @@ export default function EditProductForm({
 	const queryClient = useQueryClient();
 	const [page] = usePageQueryState();
 	const [searchQuery] = useSearchQueryState();
+	const [category] = useProductCategoriesState();
 	const queryCache = queryClient.getQueryCache();
 	const query = queryCache.find({
-		queryKey: ["products", page, searchQuery],
+		queryKey: ["products", page, searchQuery, category],
 	});
 	const data = query?.state.data as ProductsResponse;
-	const productData = data.products.find((item) => item.id === id);
+	const productData = data?.products.find((item) => item.id === id);
 
-	if (!data || !productData) {
+	if (!productData) {
 		toast.error("Please refresh and try again");
+		closeDialog();
 		return null;
 	}
 	return <EditForm product={productData} closeDialog={closeDialog} id={id} />;
