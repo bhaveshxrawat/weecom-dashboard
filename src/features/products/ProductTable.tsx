@@ -9,7 +9,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import DeleteProduct from "./deleteProduct";
+import DeleteProduct from "./DeleteProduct";
 import EditProduct from "./EditProduct";
 import { useProducts } from "./hooks/useProducts";
 import ProductPagination from "./ProductPagination";

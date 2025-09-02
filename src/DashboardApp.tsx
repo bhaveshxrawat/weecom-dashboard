@@ -1,6 +1,7 @@
 import AddProduct from "@/features/products/AddProduct";
 import ProductSearch from "@/features/products/ProductSearch";
 import ProductTable from "@/features/products/ProductTable";
+import ProductCategoryFilter from "./features/products/ProductCategoryFilter";
 
 function DashboardApp() {
 	return (
@@ -12,7 +13,10 @@ function DashboardApp() {
 				<AddProduct />
 			</div>
 			<div className="grid grid-rows-[auto_1fr_auto] gap-2">
-				<ProductSearch />
+				<div className="flex gap-2 justify-between">
+					<ProductSearch />
+					<ProductCategoryFilter />
+				</div>
 				<ProductTable />
 			</div>
 		</main>

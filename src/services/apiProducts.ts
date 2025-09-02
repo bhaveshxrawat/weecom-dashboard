@@ -8,14 +8,21 @@ export type ProductsResponse = {
 	limit: number;
 };
 
-export async function getProducts(skip = 0, search = "") {
+export async function getProducts(
+	skip = 0,
+	search = "",
+	category: string | null = null,
+) {
 	const fetchURL = new URL(
 		`/products?limit=${PRODUCTS_PER_PAGE}&skip=${skip}&select=title,price,category,stock`,
 		API_BASEURL,
 	);
-	if (search !== "") {
+	if (!category && search !== "") {
 		fetchURL.pathname = "/products/search";
 		fetchURL.searchParams.append("q", search);
+	}
+	if (category) {
+		fetchURL.pathname = `/products/category/${category}`;
 	}
 	try {
 		const fetchRes = await fetch(fetchURL);
@@ -26,6 +33,20 @@ export async function getProducts(skip = 0, search = "") {
 		return data as ProductsResponse;
 	} catch {
 		throw new Error("Something went wrong while fetching the products.");
+	}
+}
+
+export async function getProductCategories() {
+	const fetchURL = new URL(`/products/category-list`, API_BASEURL);
+	try {
+		const fetchRes = await fetch(fetchURL);
+		if (!fetchRes.ok) {
+			throw new Error("Encountered an issue while making the request.");
+		}
+		const data = await fetchRes.json();
+		return data as string[];
+	} catch {
+		throw new Error("Something went wrong while fetching the category list.");
 	}
 }
 
