@@ -18,6 +18,7 @@ function ProductTable() {
 	const {
 		productsData,
 		productsError,
+		refetchProducts,
 		productsLoading,
 		productsPending,
 		productsFetching,
@@ -42,7 +43,10 @@ function ProductTable() {
 						{productsError ? (
 							<div className="grid justify-items-center p-4">
 								<p className="py-5 px-3 text-center text-red">{`Uh oh! ${productsError.message}`}</p>
-								<Button variant="outline">
+								<Button
+									variant="outline"
+									onClick={() => refetchProducts({ throwOnError: true })}
+								>
 									<RotateCcw />
 									Retry
 								</Button>
