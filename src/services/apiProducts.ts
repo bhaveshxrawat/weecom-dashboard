@@ -1,20 +1,13 @@
 import { API_BASEURL, PRODUCTS_PER_PAGE } from "@/consts";
+import type { NewProductType, OGProductType } from "@/types/product";
 
-type Products = {
-	id: number;
-	title: string;
-	price: number;
-	category: string;
-	stock: number;
-};
-type ProductsResponse = {
-	products: Products[];
+export type ProductsResponse = {
+	products: OGProductType[];
 	total: number;
 	skip: number;
 	limit: number;
 };
 
-type newProductType = Omit<Products, "id">;
 export async function getProducts(skip = 0, search = "") {
 	const fetchURL = new URL(
 		`/products?limit=${PRODUCTS_PER_PAGE}&skip=${skip}&select=title,price,category,stock`,
@@ -36,7 +29,7 @@ export async function getProducts(skip = 0, search = "") {
 	}
 }
 
-export async function addProduct(data: newProductType) {
+export async function addProduct(data: NewProductType) {
 	const fetchURL = new URL(`/products/add`, API_BASEURL);
 	try {
 		const fetchRes = await fetch(fetchURL, {
@@ -48,13 +41,13 @@ export async function addProduct(data: newProductType) {
 			throw new Error("Encountered an issue while adding a new product.");
 		}
 		const fetchData = await fetchRes.json();
-		return fetchData as Products;
+		return fetchData as OGProductType;
 	} catch {
 		throw new Error("Something went wrong while adding a product.");
 	}
 }
 
-export async function editProduct(id: number, data: newProductType) {
+export async function editProduct(id: number, data: NewProductType) {
 	const fetchURL = new URL(`/products/${id}`, API_BASEURL);
 	try {
 		const fetchRes = await fetch(fetchURL, {
@@ -66,7 +59,7 @@ export async function editProduct(id: number, data: newProductType) {
 			throw new Error("Encountered an issue while editing this product.");
 		}
 		const fetchData = await fetchRes.json();
-		return fetchData as Products;
+		return fetchData as OGProductType;
 	} catch {
 		throw new Error("Something went wrong while editing this product.");
 	}

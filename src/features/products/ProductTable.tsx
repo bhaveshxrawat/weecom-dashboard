@@ -1,4 +1,4 @@
-import { Edit, RotateCcw, Trash } from "lucide-react";
+import { RotateCcw, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -9,6 +9,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import EditProduct from "./EditProduct";
 import { useProducts } from "./hooks/useProducts";
 import ProductPagination from "./ProductPagination";
 
@@ -75,9 +76,7 @@ function ProductTable() {
 										{product.stock}
 									</TableCell>
 									<TableCell className="text-right space-x-2">
-										<Button variant="ghost">
-											<Edit aria-label="Edit this product details" />
-										</Button>
+										<EditProduct id={product.id} />
 										<Button variant="default">
 											<Trash aria-label="Delete this product" />
 										</Button>

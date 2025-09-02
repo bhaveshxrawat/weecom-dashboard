@@ -1,6 +1,6 @@
-import AddProduct from "./components/AddProduct";
-import ProductSearch from "./features/products/ProductSearch";
-import ProductTable from "./features/products/ProductTable";
+import AddProduct from "@/features/products/AddProduct";
+import ProductSearch from "@/features/products/ProductSearch";
+import ProductTable from "@/features/products/ProductTable";
 
 function DashboardApp() {
 	return (
