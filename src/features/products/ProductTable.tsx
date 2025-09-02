@@ -38,7 +38,7 @@ function ProductTable() {
 		// <div className="overflow-x-auto">
 		<>
 			<div className="border rounded-xl overflow-hidden ">
-				<Table tccn="scrollbar-thin">
+				<Table tccn="scrollbar-thin [contain:size] h-full">
 					<TableHeader>
 						<TableRow className="">
 							<TableHead className="w-1/4 font-semibold">Title</TableHead>
