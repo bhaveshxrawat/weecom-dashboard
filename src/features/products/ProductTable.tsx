@@ -15,8 +15,13 @@ import { useProducts } from "./hooks/useProducts";
 import ProductPagination from "./ProductPagination";
 
 function ProductTable() {
-	const { productsData, productsError, productsLoading, productsFetching } =
-		useProducts();
+	const {
+		productsData,
+		productsError,
+		productsLoading,
+		productsFetching,
+		productsRefetching,
+	} = useProducts();
 	if (productsError) {
 		return (
 			<div className="grid justify-items-center p-4">
@@ -44,7 +49,7 @@ function ProductTable() {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{productsLoading || productsFetching ? (
+						{productsLoading || productsFetching || productsRefetching ? (
 							Array.from({ length: 10 }).map((_, idx) => (
 								// biome-ignore lint/suspicious/noArrayIndexKey: <fine for this use case>
 								<TableRow key={idx}>

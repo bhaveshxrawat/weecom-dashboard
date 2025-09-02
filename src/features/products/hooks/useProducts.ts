@@ -12,7 +12,15 @@ export function useProducts() {
 	const [category] = useProductCategoriesState();
 	const debouncedSearchQuery = useDebouncedValue(searchQuery);
 	const skip = Math.ceil((page - 1) * PRODUCTS_PER_PAGE);
-	const { data, error, isFetching, isPending, isLoading } = useQuery({
+	const {
+		data,
+		error,
+		isFetching,
+		isPending,
+		isLoading,
+		refetch,
+		isRefetching,
+	} = useQuery({
 		queryKey: ["products", page, debouncedSearchQuery, category],
 		queryFn: () => getProducts(skip, debouncedSearchQuery, category),
 		placeholderData: keepPreviousData,
@@ -20,6 +28,8 @@ export function useProducts() {
 	return {
 		productsData: data,
 		productsError: error,
+		refetchProducts: refetch,
+		productsRefetching: isRefetching,
 		productsLoading: isLoading,
 		productsFetching: isFetching,
 		productsPending: isPending,
