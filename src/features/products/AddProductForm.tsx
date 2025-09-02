@@ -2,45 +2,60 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useAddProduct } from "./hooks/useAddProduct";
 
-//This is file has many @ts-expect-error; not proud of it. Deadline's near. Will come back to this
-// TODO remove ts-expect-error
-
-export const newProductSchema = z.object({
+export const ExtendedNewProductSchema = z.object({
 	title: z
-		.string({ error: "This is required" })
+		.string()
 		.min(2, {
-			error: "Title must be atleast two characters.",
+			error: "Must be atleast two characters.",
 		})
 		.max(50, {
-			error: "Title must not exceed 50 characters.",
+			error: "Must not exceed 50 characters.",
 		}),
-	price: z.coerce.number<string>({ error: "This is required" }).min(1, {
-		error: "Product must have a price",
-	}),
-	category: z.string({ error: "This is required" }).min(2, {
-		error: "Category must be atleast two characters.",
-	}),
-	stock: z.coerce.number<string>({ error: "This is required" }),
+	price: z.coerce
+		.number<number>("Must be a number")
+		.int()
+		.positive()
+		.min(1, { message: "Price must be at least 1" }),
+	category: z
+		.string({ error: "Required" })
+		.min(2, {
+			error: "Must be atleast two characters.",
+		})
+		.max(50, {
+			error: "Must not exceed 50 characters.",
+		}),
+	stock: z.coerce
+		.number<number>("Must be a number")
+		.int()
+		.min(0, { message: "Stock must be at least 0" }),
 });
 
-function AddProductForm({ closeDialog }: { closeDialog: () => void }) {
-	const form = useForm<z.infer<typeof newProductSchema>>({
-		// @ts-expect-error
-		resolver: zodResolver(newProductSchema),
+type FormValues = z.infer<typeof ExtendedNewProductSchema>;
+
+export default function AddProductForm({
+	closeDialog,
+}: {
+	closeDialog: () => void;
+}) {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isValid },
+	} = useForm<FormValues>({
+		defaultValues: {
+			category: "",
+			price: 0,
+			title: "",
+			stock: 0,
+		},
+		resolver: zodResolver(ExtendedNewProductSchema),
 	});
 	const { addProduct, isAddingProduct } = useAddProduct();
-	function onSubmit(values: z.infer<typeof newProductSchema>) {
+	function onSubmit(values: FormValues) {
 		addProduct(values, {
 			onSuccess: () => {
 				closeDialog();
@@ -48,82 +63,52 @@ function AddProductForm({ closeDialog }: { closeDialog: () => void }) {
 		});
 	}
 	return (
-		<Form {...form}>
-			{/* @ts-ignore */}
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-				<FormField
-					// @ts-expect-error
-					control={form.control}
-					name="title"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Title</FormLabel>
-							<FormControl>
-								<Input placeholder="MacBook M4" {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
+		<form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+			<div className="grid gap-2">
+				<Label htmlFor="title">Title</Label>
+				<Input
+					id="title"
+					type="text"
+					placeholder="MacBook M4"
+					{...register("title")}
 				/>
-				<FormField
-					// @ts-expect-error
-					control={form.control}
-					name="category"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Category</FormLabel>
-							<FormControl>
-								<Input placeholder="electronics" {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
+				<p className="text-sm text-red-500">{errors.title?.message}</p>
+			</div>
+			<div className="grid gap-2">
+				<Label htmlFor="category">Category</Label>
+				<Input
+					id="category"
+					type="text"
+					placeholder="electronics"
+					{...register("category")}
 				/>
-				<div className="flex gap-3 items-start">
-					<FormField
-						// @ts-expect-error
-						control={form.control}
-						name="price"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Price</FormLabel>
-								<FormControl>
-									<Input
-										type="number"
-										inputMode="numeric"
-										placeholder="1299"
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
+				<p className="text-sm text-red-500">{errors.category?.message}</p>
+			</div>
+			<div className="flex gap-3 items-start">
+				<div className="grid gap-2">
+					<Label htmlFor="price">Price</Label>
+					<Input
+						id="price"
+						type="number"
+						placeholder="399"
+						{...register("price", { valueAsNumber: true })}
 					/>
-					<FormField
-						// @ts-expect-error
-						control={form.control}
-						name="stock"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Stock</FormLabel>
-								<FormControl>
-									<Input
-										type="number"
-										inputMode="numeric"
-										placeholder="99"
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+					<p className="text-sm text-red-500">{errors.price?.message}</p>
 				</div>
-				<Button type="submit" disabled={isAddingProduct}>
-					Submit
-				</Button>
-			</form>
-		</Form>
+				<div className="grid gap-2">
+					<Label htmlFor="stock">Stock</Label>
+					<Input
+						id="stock"
+						type="number"
+						placeholder="399"
+						{...register("stock", { valueAsNumber: true })}
+					/>
+					<p className="text-sm text-red-500">{errors.stock?.message}</p>
+				</div>
+			</div>
+			<Button type="submit" disabled={isAddingProduct || !isValid}>
+				Submit
+			</Button>
+		</form>
 	);
 }
-export default AddProductForm;

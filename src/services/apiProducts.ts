@@ -53,3 +53,21 @@ export async function addProduct(data: newProductType) {
 		throw new Error("Something went wrong while adding a product.");
 	}
 }
+
+export async function editProduct(id: number, data: newProductType) {
+	const fetchURL = new URL(`/products/${id}`, API_BASEURL);
+	try {
+		const fetchRes = await fetch(fetchURL, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+		});
+		if (!fetchRes.ok) {
+			throw new Error("Encountered an issue while editing this product.");
+		}
+		const fetchData = await fetchRes.json();
+		return fetchData as Products;
+	} catch {
+		throw new Error("Something went wrong while editing this product.");
+	}
+}

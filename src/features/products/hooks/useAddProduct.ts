@@ -8,7 +8,6 @@ export function useAddProduct() {
 		mutationFn: addProduct,
 		onSuccess: (data) => {
 			toast.success(`Yay! ${data.title} has been created.`);
-			console.log("toast", { data });
 			queryClient.invalidateQueries({
 				queryKey: ["products"],
 			});
