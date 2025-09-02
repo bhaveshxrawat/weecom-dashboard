@@ -11,7 +11,6 @@ import { useSearchQueryState } from "@/hooks/useSearchQueryState";
 import type { ProductsResponse } from "@/services/apiProducts";
 import type { OGProductType } from "@/types/product";
 import { ExtendedNewProductSchema } from "./AddProductForm";
-import { useAddProduct } from "./hooks/useAddProduct";
 import { useEditProduct } from "./hooks/useEditProduct";
 
 type FormValues = z.infer<typeof ExtendedNewProductSchema>;
@@ -78,6 +77,7 @@ function EditForm({
 					<Input
 						id="price"
 						type="number"
+						step="any"
 						placeholder="399"
 						{...register("price", { valueAsNumber: true })}
 					/>

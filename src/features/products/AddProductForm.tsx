@@ -17,8 +17,6 @@ export const ExtendedNewProductSchema = z.object({
 		}),
 	price: z.coerce
 		.number<number>("Must be a number")
-		.int()
-		.positive()
 		.min(1, { message: "Price must be at least 1" }),
 	category: z
 		.string({ error: "Required" })
@@ -90,8 +88,9 @@ export default function AddProductForm({
 					<Input
 						id="price"
 						type="number"
+						step="any"
 						placeholder="399"
-						{...register("price", { valueAsNumber: true })}
+						{...register("price")}
 					/>
 					<p className="text-sm text-red-500">{errors.price?.message}</p>
 				</div>
@@ -101,7 +100,7 @@ export default function AddProductForm({
 						id="stock"
 						type="number"
 						placeholder="399"
-						{...register("stock", { valueAsNumber: true })}
+						{...register("stock")}
 					/>
 					<p className="text-sm text-red-500">{errors.stock?.message}</p>
 				</div>
