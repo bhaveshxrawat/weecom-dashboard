@@ -64,3 +64,19 @@ export async function editProduct(id: number, data: NewProductType) {
 		throw new Error("Something went wrong while editing this product.");
 	}
 }
+
+export async function deleteProduct(id: number) {
+	const fetchURL = new URL(`/products/${id}`, API_BASEURL);
+	try {
+		const fetchRes = await fetch(fetchURL, {
+			method: "DELETE",
+		});
+		if (!fetchRes.ok) {
+			throw new Error("Encountered an issue while deleting this product.");
+		}
+		const fetchData = await fetchRes.json();
+		return fetchData as OGProductType;
+	} catch {
+		throw new Error("Something went wrong while deleting this product.");
+	}
+}
