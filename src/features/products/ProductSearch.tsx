@@ -1,10 +1,10 @@
 import { Info, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
-	Tooltip,
-	TooltipContent,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
 import { useProductCategoriesState } from "@/hooks/useProductCategoryState";
 import { useSearchQueryState } from "@/hooks/useSearchQueryState";
 import { usePageQueryState } from "../../hooks/usePageQueryState";
@@ -39,17 +39,17 @@ function ProductSearch() {
 				/>
 			</div>
 			{!!category && (
-				<Tooltip>
-					<TooltipTrigger className="p-2">
+				<Popover>
+					<PopoverTrigger className="p-2">
 						<Info className="text-muted-foreground" size={20} />
-					</TooltipTrigger>
-					<TooltipContent>
-						<p>
+					</PopoverTrigger>
+					<PopoverContent className="bg-accent">
+						<p className="text-sm">
 							The API this app consumes doesn't let you query when you have
 							categories. Hence, the search is disabled.
 						</p>
-					</TooltipContent>
-				</Tooltip>
+					</PopoverContent>
+				</Popover>
 			)}
 		</search>
 	);
