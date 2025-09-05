@@ -30,7 +30,7 @@ function ProductTable() {
 		<>
 			<div className="border rounded-xl overflow-hidden ">
 				<Table tccn="scrollbar-thin [contain:size] h-full">
-					<TableHeader>
+					<TableHeader className="sticky top-0 isolate bg-white">
 						<TableRow className="">
 							<TableHead className="w-1/4 font-semibold">Title</TableHead>
 							<TableHead className="font-semibold">Price</TableHead>
